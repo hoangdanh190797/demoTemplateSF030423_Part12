@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { postUserLogin, getUserLogin } from '../store/slice/usersSlice'
 import Alert from '@mui/material/Alert';
 import { useParams, useNavigate, Link, NavLink } from "react-router-dom";
+import { log } from 'console';
 
 
 
@@ -26,6 +27,8 @@ export default function SignIn() {
         // console.log(currentUser);
         console.log(error);
         console.log(user);
+        const {token} = user;
+        console.log(token);
     }
 
     const handleEmail = (event: any) => {
