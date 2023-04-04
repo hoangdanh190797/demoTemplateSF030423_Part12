@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import articlesSlice from './slice/articlesSlice'
+import usersSlice from './slice/usersSlice'
 // import countriesSlice from '../store/slices/countriesSliceTestTest'
 
 
@@ -8,7 +9,12 @@ export const store = configureStore({
   reducer: {
     // countriesAll : countriesAllSlice,
     articles : articlesSlice,
+    users: usersSlice,
   },
+  middleware: getDefaultMiddleware =>
+  getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

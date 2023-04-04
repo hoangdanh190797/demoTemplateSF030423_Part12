@@ -11,7 +11,7 @@ export default function Home() {
     })
     useEffect(() => {
         dispatch(getArticlesAll())
-    })
+    },[dispatch])
 
     return (
         <>

@@ -2,20 +2,23 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Header from './components/Header';
-import Footer from './components/Footer';
 import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+// import LoginRegister from './pages/LoginRegister';
+import { Route, Routes } from "react-router-dom";
+import TemplateHome from './template/TemplateHome';
 
-import LoginRegister from './pages/LoginRegister';
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header></Header>
-      <Home></Home>
-      <Footer></Footer> */}
-      <LoginRegister></LoginRegister>
-    </div>
+    <Routes>
+      <Route path='/' element={<TemplateHome />}>
+        <Route index element={<Home />} />
+        <Route path='signin' element={<SignIn />} />
+        <Route path='signup' element={<SignUp />} />
+      </Route>
+    </Routes>
   );
 }
 

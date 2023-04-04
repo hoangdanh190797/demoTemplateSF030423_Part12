@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
-import { postUserLogin, getUserLogin } from '../store/slice/usersSlice'
+import { postUserRegister  } from '../store/slice/usersSlice'
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 
 
-export default function LoginRegister() {
+export default function SignUp() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -18,19 +18,19 @@ export default function LoginRegister() {
     const [_name, setName] = useState('')
     const [_email, setEmail] = useState('');
     const [_password, setPassword] = useState('');
+
     console.log(userOnl);
+    
     const handleSubmit = (event: any) => {
         event.preventDefault();
         const user: any = {
-            // 'name': _name,
+            'username': _name,
             'email': _email,
             'password': _password
         }
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(
-        postUserLogin(user)
-        );
-        dispatch(getUserLogin())
+        localStorage.setItem("userNew", JSON.stringify(user));
+        dispatch(postUserRegister(user));
+
         console.log(isLogin);
         console.log(user);
         console.log(JSON.parse(userAfterJSON));
@@ -38,7 +38,7 @@ export default function LoginRegister() {
     console.log(isLogin);
 
     if (isLogin) {
-        alert("Đăng nhập thành công!");
+        alert("Đăng ký thành công!");
         navigate('/');
         console.log(userOnl);
         console.log(error);
@@ -62,9 +62,9 @@ export default function LoginRegister() {
                         <p className="text-xs-center">
                             <a href=''>Have an account?</a>
                         </p>
-                        <ul className="error-messages">
+                        {/* <ul className="error-messages">
                             <li>That email is already taken</li>
-                        </ul>
+                        </ul> */}
                         <form onSubmit={handleSubmit}>
                             <fieldset className="form-group">
                                 <input

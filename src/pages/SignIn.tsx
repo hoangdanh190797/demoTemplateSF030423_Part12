@@ -2,78 +2,71 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { postUserLogin, getUserLogin } from '../store/slice/usersSlice'
-import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import { useParams, useNavigate, Link, NavLink } from "react-router-dom";
 
 
-export default function LoginRegister() {
+
+export default function SignIn() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { isLogin, userAfterJSON, userOnl, error } = useAppSelector((state: any) => {
+    const { isLogin, userAfterJSON, userOnl, error, user } = useAppSelector((state: any) => {
         return state.users;
     })
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [_name, setName] = useState('')
-    const [_email, setEmail] = useState('');
-    const [_password, setPassword] = useState('');
-    console.log(userOnl);
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        const user: any = {
-            // 'name': _name,
-            'email': _email,
-            'password': _password
-        }
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(
-        postUserLogin(user)
-        );
-        dispatch(getUserLogin())
-        console.log(isLogin);
-        console.log(user);
-        console.log(JSON.parse(userAfterJSON));
-    }
-    console.log(isLogin);
+    
 
     if (isLogin) {
         alert("Đăng nhập thành công!");
         navigate('/');
-        console.log(userOnl);
+        // console.log(currentUser);
         console.log(error);
+        console.log(user);
     }
-    
-    const handleName = (event: any) => {
-        setName(event.target.value)
-    }
+
     const handleEmail = (event: any) => {
         setEmail(event.target.value)
     }
     const handlePassword = (event: any) => {
         setPassword(event.target.value)
     }
+
+    console.log(userOnl);
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+
+
+
+        // localStorage.setItem("user", JSON.stringify(user));
+
+
+        dispatch(postUserLogin({user:{email, password}}));
+
+        console.log(isLogin);
+        console.log(user);
+        // console.log(JSON.parse(userAfterJSON));
+        console.log(userOnl);
+    }
+    console.log(isLogin);
     return (
         <div className="auth-page">
             <div className="container page">
                 <div className="row">
                     <div className="col-md-6 offset-md-3 col-xs-12">
-                        <h1 className="text-xs-center">Sign up</h1>
+                        <h1 className="text-xs-center">Sign in</h1>
                         <p className="text-xs-center">
-                            <a href=''>Have an account?</a>
+                            <Link to={'/signup'}>
+                                <a href=''>Have an account?</a>
+                            </Link>
                         </p>
-                        <ul className="error-messages">
+                        {/* <ul className="error-messages">
                             <li>That email is already taken</li>
-                        </ul>
+                        </ul> */}
                         <form onSubmit={handleSubmit}>
-                            <fieldset className="form-group">
-                                <input
-                                    className="form-control form-control-lg"
-                                    type="text"
-                                    placeholder="Your Name"
-                                    onChange={handleName}
-                                />
-                            </fieldset>
                             <fieldset className="form-group">
                                 <input
                                     className="form-control form-control-lg"
@@ -90,7 +83,7 @@ export default function LoginRegister() {
                                     onChange={handlePassword}
                                 />
                             </fieldset>
-                            <button type='submit' className="btn btn-lg btn-primary pull-xs-right">Sign up</button>
+                            <button type='submit' className="btn btn-lg btn-primary pull-xs-right">Sign in</button>
                         </form>
                     </div>
                 </div>
